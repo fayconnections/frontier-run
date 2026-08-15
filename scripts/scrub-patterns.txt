@@ -1,0 +1,20 @@
+# scrub-patterns.txt
+#
+# Regex patterns for scripts/scrub.sh to grep against, one per line.
+# These are SHAPES of secrets, not secrets themselves — safe to commit.
+# Blank lines and lines starting with # are ignored by scrub.sh.
+
+# credential-shaped assignments to a literal string
+(password|passwd|secret|api[_-]?key|access[_-]?token|auth[_-]?token)[[:space:]]*[:=][[:space:]]*['"][^'"]{4,}['"]
+
+# private key blocks
+-----BEGIN [A-Z ]*PRIVATE KEY-----
+
+# hardcoded password hashing with a literal
+bcrypt\.(hashSync|hash)[[:space:]]*\([[:space:]]*['"]
+
+# email addresses (PII)
+[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}
+
+# 32-hex identifiers (Kolibri facility/channel IDs)
+[0-9a-f]{32}

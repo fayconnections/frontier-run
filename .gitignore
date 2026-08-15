@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.db
+*.db-wal
+*.db-shm
+*.sqlite3
+*.bak
+*.bak-*
+.DS_Store
+npm-debug.log*
+.scrub-secrets.local
