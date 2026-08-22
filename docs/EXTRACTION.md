@@ -94,6 +94,7 @@ made visible rather than silently omitted.
 | `public/README.md` | Documents why no player UI was lifted |
 | `fixtures/sample-curriculum-nodes.txt`, `fixtures/sample-skill-tree-cache.json` | Small synthetic data so `pool/build.js` is runnable without a live Kolibri install — NOT copied from Arcademy's real curriculum file; content_ids/titles are invented |
 | `test/engine.fixture.test.js` | Regression test for the lifted engine, wired against the fixtures. Recreates the discarded end-to-end smoke run from the extraction session as a committed, assertable test — see "Regression test" below |
+| `.github/FUNDING.yml` | Enables the repo's GitHub Sponsor button. No lifted-code relationship — purely repo/platform config |
 
 ### Regression test (`npm test`)
 

@@ -2,6 +2,10 @@
 
 **An offline-capable, computer-adaptive math placement test that runs on [Kolibri](https://learningequality.org/kolibri/) with Khan Academy exercises.**
 
+[![Frontier Run demo](https://img.youtube.com/vi/Fp3i0d_m8Pc/0.jpg)](https://www.youtube.com/watch?v=Fp3i0d_m8Pc)
+
+▶ **48-second demo** — an adaptive placement run in a live Kolibri deployment.
+
 Frontier Run gives a student a short, adaptive assessment that finds their working level across eight math topics — early arithmetic through introductory algebra — and hands back a starting point for practice. It runs on the same low-cost, offline-first hardware Kolibri targets, using the Khan Academy exercises Kolibri already serves.
 
 > **Status: early / alpha.** Running in a live K–12 deployment in Hilo, Hawaiʻi, and being extracted from a larger platform into this standalone repo. Internals will change; issues and feedback are welcome.
@@ -43,7 +47,7 @@ Frontier Run is being extracted from its parent platform; a clean standalone boo
 
 - [ ] Clean standalone boot (extraction from parent platform)
 - [ ] Verified install/run docs + `.env.example`
-- [ ] Demo recording
+- [x] Demo recording
 - [ ] Thin architecture doc (location map)
 - [ ] Per-item difficulty parameters instead of uniform grade-band inheritance
 - [ ] Confidence-based (standard-error) stopping rule — a step toward IRT-style adaptivity
