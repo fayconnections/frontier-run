@@ -72,7 +72,10 @@ auth/identity.stub.js  Documents (does not implement) how a student's
 fixtures and inspect the resulting pool; read `engine/processAnswer.js` and
 its dependencies end-to-end as a complete, self-consistent adaptive-testing
 algorithm; open `data/schema.sql` to see the exact tables a real deployment
-needs.
+needs. `npm test` runs a regression suite (`test/engine.fixture.test.js`)
+that drives the engine through a full run against the fixtures — that's the
+fastest way to confirm "does the lift still behave correctly" after a
+re-extraction.
 
 **Can't:** serve a real exercise to a real student, or authenticate anyone
 — those are `serving/` and `auth/`'s documented-but-not-built later phases.

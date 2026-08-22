@@ -4,6 +4,9 @@
   "description": "Offline-capable computer-adaptive math placement test for Kolibri + Khan Academy exercises.",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "test": "node --test"
+  },
   "dependencies": {
     "better-sqlite3": "^11.10.0"
   }

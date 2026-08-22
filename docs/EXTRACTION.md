@@ -93,6 +93,59 @@ made visible rather than silently omitted.
 | `src/auth/README.md`, `src/auth/identity.stub.js` | Documents, does not implement, identity/session |
 | `public/README.md` | Documents why no player UI was lifted |
 | `fixtures/sample-curriculum-nodes.txt`, `fixtures/sample-skill-tree-cache.json` | Small synthetic data so `pool/build.js` is runnable without a live Kolibri install — NOT copied from Arcademy's real curriculum file; content_ids/titles are invented |
+| `test/engine.fixture.test.js` | Regression test for the lifted engine, wired against the fixtures. Recreates the discarded end-to-end smoke run from the extraction session as a committed, assertable test — see "Regression test" below |
+
+### Regression test (`npm test`)
+
+`test/engine.fixture.test.js` (Node's built-in `node:test`/`node:assert`, no
+added test-framework dependency) drives the lifted engine through two
+full/partial runs against the fixture pool, using a throwaway SQLite file
+under the OS temp dir (created in `before()`, removed in `after()` — never a
+committed `.db`; already covered by `.gitignore`'s `*.db`/`*.db-wal`/
+`*.db-shm` patterns even though it never touches the repo directory).
+
+**Determinism.** The only real nondeterminism in the lifted code is
+`pickNextExercise`'s `Math.random()` tie-break among equal-distance
+candidates (only the addition and algebra ceiling buckets have more than one
+fixture exercise). The test controls this via `node:test`'s built-in mock
+tracker temporarily replacing the global `Math.random` with a seeded PRNG
+for the duration of each test — `selection.js` itself is never touched.
+Every other level bucket in the fixture has exactly one exercise, so
+`Math.floor(Math.random() * 1)` is deterministic regardless; the seeding
+matters only for those two buckets and for robustness if the fixture grows
+more ties later.
+
+**What's asserted, and why each would actually catch a regression:**
+- A full all-correct run visits every `TOPIC_CHAIN` topic in order and
+  terminates (bounded loop, not an unbounded `while(true)`) — catches a hang
+  if a future change broke topic advancement.
+- Every topic's termination reason is `'ceiling'`, never `'pool_exhausted'`
+  — catches the pool being sized wrong for the algorithm, or ceiling-confirm
+  silently breaking.
+- Every topic's recorded `level_reached` equals its derived ceiling
+  (`TOPIC_CHAIN[i].max`, mutated in place by `deriveTopicCeilings`) — the
+  direct regression check for the historical "served level disagreed with
+  logged level" class of bug (F1 in the Arcademy architecture docs).
+- Persisted `frontier_attempts` row count equals `answers - 1` for the
+  all-correct run — the exact, corrected finding from extraction that
+  `processAnswer`'s final completing answer returns early *before*
+  `persistAnswerIncremental` runs. A future accidental reordering of that
+  early return would change this count and fail loudly here.
+- `frontier_runs.resume_topic_idx` after the full run equals the last real
+  topic's index, not the post-completion overflow value — checks the resume
+  snapshot stays honest even at the exact moment a run completes.
+- An all-wrong run on the first topic resolves in exactly `budgetPerTopic`
+  answers via `'budget_exhausted'` (never `'ceiling'`), every attempt is
+  stamped `regression_event=1`, and the recorded `level_reached` matches
+  `computeModalLevel()` applied to the independently-persisted served
+  levels — cross-checking the persisted data against the same lifted
+  function the engine itself uses, rather than a hardcoded fixture-specific
+  number.
+
+No assertion in this file needed to be loosened or hardcoded around a
+surprise — every value above was verified by actually running the suite
+(`npm test`, 3/3 passing, run repeatedly to confirm stability) rather than
+derived by hand and assumed correct.
 
 **`scripts/sync-from-arcademy.sh`** moved from a pure stub to a guarded,
 non-executing plan this pass: it now names the real file list (mirroring the
