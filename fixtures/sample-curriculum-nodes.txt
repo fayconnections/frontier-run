@@ -1,0 +1,20 @@
+# fixtures/sample-curriculum-nodes.txt — REPO-NATIVE, never overwritten by
+# re-extraction (see docs/EXTRACTION.md).
+#
+# A SMALL, SYNTHETIC sample in the real Arcademy curriculum-nodes format
+# (grade|elevation|L3 topic title|comma-separated L4 ids), NOT a copy of
+# Arcademy's real kolibri-curriculum-nodes.txt. Content_ids/titles below are
+# invented for illustration — do not treat any id here as a real Kolibri
+# content identifier. Enough rows to exercise src/pool/build.js's
+# classification logic across a few topics/grades without needing the real
+# ~18KB curriculum file or a live Kolibri install.
+#
+# Format: grade | elevation (unused by the engine, kept for shape fidelity) | L3 node title | L4 ids (comma-separated)
+Kindergarten|1|Counting and cardinality|l4-count-1
+1st grade|2|Addition and subtraction|l4-add-1,l4-sub-1
+3rd grade|4|Addition, subtraction, and estimation|l4-add-2,l4-add-3
+3rd grade|4|Multiplication and division|l4-mult-1,l4-div-1
+4th grade|5|Fractions|l4-frac-1
+5th grade|6|Decimals|l4-dec-1
+6th grade|7|Ratios and proportions|l4-ratio-1
+8th grade|9|Linear equations and functions|l4-alg-1,l4-alg-2

@@ -1,0 +1,91 @@
+{
+  "_comment": "REPO-NATIVE fixture, never overwritten by re-extraction (see docs/EXTRACTION.md). Matches the shape of Arcademy's SKILL_TREE_CACHE (server.js:1877-1927) — keyed by curriculum-node id (see fixtures/sample-curriculum-nodes.txt), each with a subtopicList of L4 topics and their exercises. All content_id/id/title values below are INVENTED for illustration, not real Kolibri content identifiers. In the real system this cache is built by reading Kolibri's own SQLite database (~/.kolibri/db.sqlite3) with lft/rght nested-set queries — see src/pool/kolibri-source.md — not authored by hand like this.",
+
+  "kindergarten_counting_and_cardinality": {
+    "subtopicList": [
+      { "id": "l4-count-1", "title": "Counting objects",
+        "exercises": [
+          { "content_id": "sample-k-count-001", "id": "node-k-count-1", "title": "Count up to 10 objects", "lft": 100 }
+        ] }
+    ]
+  },
+
+  "1st_grade_addition_and_subtraction": {
+    "subtopicList": [
+      { "id": "l4-add-1", "title": "Add within 20",
+        "exercises": [
+          { "content_id": "sample-1-add-001", "id": "node-1-add-1", "title": "Add within 20 using pictures", "lft": 200 }
+        ] },
+      { "id": "l4-sub-1", "title": "Subtract within 20",
+        "exercises": [
+          { "content_id": "sample-1-sub-001", "id": "node-1-sub-1", "title": "Subtract within 20 using pictures", "lft": 210 }
+        ] }
+    ]
+  },
+
+  "3rd_grade_addition_subtraction_and_estimation": {
+    "subtopicList": [
+      { "id": "l4-add-2", "title": "Estimate to add multi-digit numbers",
+        "exercises": [
+          { "content_id": "sample-3-add-002", "id": "node-3-add-2", "title": "Estimate to add multi-digit whole numbers", "lft": 300 }
+        ] },
+      { "id": "l4-add-3", "title": "Strategies for adding two and three-digit numbers",
+        "exercises": [
+          { "content_id": "sample-3-add-003", "id": "node-3-add-3", "title": "Add using strategies", "lft": 310 }
+        ] }
+    ]
+  },
+
+  "3rd_grade_multiplication_and_division": {
+    "subtopicList": [
+      { "id": "l4-mult-1", "title": "1-digit multiplication",
+        "exercises": [
+          { "content_id": "sample-3-mult-001", "id": "node-3-mult-1", "title": "Multiply 1-digit numbers", "lft": 320 }
+        ] },
+      { "id": "l4-div-1", "title": "Division with remainders",
+        "exercises": [
+          { "content_id": "sample-3-div-001", "id": "node-3-div-1", "title": "Divide with remainders", "lft": 330 }
+        ] }
+    ]
+  },
+
+  "4th_grade_fractions": {
+    "subtopicList": [
+      { "id": "l4-frac-1", "title": "Mixed numbers",
+        "exercises": [
+          { "content_id": "sample-4-frac-001", "id": "node-4-frac-1", "title": "Add mixed numbers", "lft": 400 }
+        ] }
+    ]
+  },
+
+  "5th_grade_decimals": {
+    "subtopicList": [
+      { "id": "l4-dec-1", "title": "Decimal place value",
+        "exercises": [
+          { "content_id": "sample-5-dec-001", "id": "node-5-dec-1", "title": "Decimal place value practice", "lft": 500 }
+        ] }
+    ]
+  },
+
+  "6th_grade_ratios_and_proportions": {
+    "subtopicList": [
+      { "id": "l4-ratio-1", "title": "Ratios and rates",
+        "exercises": [
+          { "content_id": "sample-6-ratio-001", "id": "node-6-ratio-1", "title": "Solve rate problems", "lft": 600 }
+        ] }
+    ]
+  },
+
+  "8th_grade_linear_equations_and_functions": {
+    "subtopicList": [
+      { "id": "l4-alg-1", "title": "One-step linear equations",
+        "exercises": [
+          { "content_id": "sample-8-alg-001", "id": "node-8-alg-1", "title": "Solve one-step linear equations", "lft": 700 }
+        ] },
+      { "id": "l4-alg-2", "title": "Slope and intercept",
+        "exercises": [
+          { "content_id": "sample-8-alg-002", "id": "node-8-alg-2", "title": "Find slope and intercept", "lft": 710 }
+        ] }
+    ]
+  }
+}
