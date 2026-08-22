@@ -1,32 +1,56 @@
 #!/usr/bin/env bash
-# sync-from-arcademy.sh — STUB. Not implemented yet.
+# sync-from-arcademy.sh — GUARDED PLAN, still non-executing.
 #
-# Future job of this script (once the extraction's "clean-core" file set is
-# defined — see docs/Arcademy Claude/specs/frontier-run-extraction-seam-
-# investigation.md in the Arcademy repo for the boundary analysis this will
-# be based on):
+# This names the real "clean-core" (LIFTED) file list as of the Scope A
+# extraction pass (2026-08-15) — see docs/EXTRACTION.md section (a) for the
+# authoritative, documented version of this same list with source line
+# numbers and rationale. This script is the machine-readable mirror of that
+# table; docs/EXTRACTION.md is the human-readable source of truth if the two
+# ever disagree.
 #
-#   1. Copy a DEFINED, EXPLICIT list of "clean-core" Frontier Run files out
-#      of ~/arcademy into this repo (source paths TBD — see TODO below).
-#   2. Run scripts/scrub.sh against every copied file.
+# Future job of this script, once actually wired up:
+#   1. For each entry in LIFTED_FILES below, re-derive the file from the
+#      current arcademy/server.js (read-only over there — never move/edit/
+#      delete anything under ~/arcademy) and write it to this repo's path.
+#   2. Run scripts/scrub.sh against every file it just wrote.
 #   3. If scrub.sh exits nonzero (ANY suspicious match), REFUSE to proceed —
 #      do not stage, do not commit, print the scrub output, and exit
 #      nonzero. A human must clear the flagged content (or add a vetted
 #      literal to .scrub-secrets.local / adjust scrub-patterns.txt) and
 #      re-run before this script may continue.
 #   4. Only stage/commit the synced files if scrub.sh passed clean.
+#   5. Never touch REPO-NATIVE files (docs/EXTRACTION.md section (b)) —
+#      those carry this repo's own history and must survive a re-extraction
+#      untouched.
 #
-# This script intentionally does NOT run any of that yet. It exists as a
-# placeholder so the sync + scrub-gate shape is visible in the repo from
-# day one, before the file-by-file extraction work happens.
-#
-# TODO(extraction): define the clean-core file list here once the boundary
-# investigation's "keep" column is finalized (auth-seam replacement, the
-# frontier_* schema/functions, a new minimal player, etc. — NOT a lift of
-# server.js or skill-tree.html wholesale). Nothing is copied by this stub.
+# This script intentionally does NOT run any of that yet — re-deriving each
+# file automatically (rather than by hand, as this pass did) needs its own
+# review before it's trusted to run unattended. It exists so the real file
+# list and the scrub-gate shape are both visible and versioned from this
+# point forward, not so re-extraction is automated today.
 
 set -euo pipefail
 
-echo "sync-from-arcademy.sh: STUB — not implemented. No files copied." >&2
-echo "See the TODO block at the top of this script." >&2
+# Mirrors docs/EXTRACTION.md section (a). Keep these two lists in sync by
+# hand until this script actually does the copying itself.
+LIFTED_FILES=(
+  "src/engine/constants.js"
+  "src/engine/runState.js"
+  "src/engine/selection.js"
+  "src/engine/progression.js"
+  "src/engine/processAnswer.js"
+  "src/data/schema.sql"
+  "src/data/accessors.js"
+  "src/pool/build.js"
+  "src/results/frontier-topic-results.js"
+)
+
+echo "sync-from-arcademy.sh: GUARDED — plan only, not wired up yet." >&2
+echo "Would re-derive and scrub the following files from ~/arcademy:" >&2
+for f in "${LIFTED_FILES[@]}"; do
+  echo "  - $f" >&2
+done
+echo "" >&2
+echo "No files were copied or modified. See the header comment in this" >&2
+echo "script and docs/EXTRACTION.md for the real plan." >&2
 exit 1
